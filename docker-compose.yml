@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  queue:
+    build:
+      context: docker/rabbitmq
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_VM_MEMORY_HIGH_WATERMARK: 2000MiB
+      RABBITMQ_ERLANG_COOKIE: f6fAjy5yes
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123
+
+  db:
+    image: postgres:11.1-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 123456789
+      POSTGRES_USER: demo
+      POSTGRES_DB: tester
+    ports:
+      - 5432:5432
+    volumes:
+      - ./customers.sql:/docker-entrypoint-initdb.d/init.sql
