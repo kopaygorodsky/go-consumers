@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c902319b-c32f-4cca-bb28-0b7dd76cc254" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/cmd/tester/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/tester/main.go" afterDir="false" />
-    </list>
+    <list default="true" id="c902319b-c32f-4cca-bb28-0b7dd76cc254" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,8 +76,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cmd/tester/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-206">
-              <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+            <state relative-caret-position="184">
+              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
               <folding>
                 <element signature="e#14#177#0" expanded="true" />
               </folding>
@@ -211,6 +209,12 @@
             <path>
               <item name="go-consumers" type="b2602c69:ProjectViewProjectNode" />
               <item name="go-consumers" type="462c0819:PsiDirectoryNode" />
+              <item name="docker" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="go-consumers" type="b2602c69:ProjectViewProjectNode" />
+              <item name="go-consumers" type="462c0819:PsiDirectoryNode" />
               <item name="pkg" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -302,6 +306,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28836834" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -443,8 +448,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cmd/tester/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-206">
-          <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+        <state relative-caret-position="184">
+          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
           <folding>
             <element signature="e#14#177#0" expanded="true" />
           </folding>

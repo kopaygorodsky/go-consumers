@@ -65,24 +65,6 @@ func (c *Consumer) handle(cmd StoreCommand) error {
 		handleError(err)
 	}
 
-	//storedEvent, err := json.Marshal(&StoredEvent{Id: cmd.Id})
-	//
-	//handleError(err)
-
-	//err = c.amqpChannel.Publish(
-	//	"",
-	//	c.amqpQueue.Name,
-	//	false,
-	//	false,
-	//	amqp.Publishing{
-	//		DeliveryMode: amqp.Persistent,
-	//		ContentType:  "text/plain",
-	//		Body:         storedEvent,
-	//	},
-	//)
-	//
-	//handleError(err)
-
 	handleError(tx.Commit())
 
 	return nil
