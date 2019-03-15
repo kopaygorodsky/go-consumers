@@ -42,18 +42,14 @@ func main() {
 func run() {
 	db, err := sql.Open("postgres", dbConnection)
 
-	if err != nil {
-		log.Fatal(err)
-	}
+	handleError(err)
 
 	db.SetMaxOpenConns(99)
 	db.SetMaxIdleConns(99)
 
 	err = db.Ping()
 
-	if err != nil {
-		log.Fatal(err)
-	}
+	handleError(err)
 
 	connection, err := amqp.Dial(amqpConnection)
 	handleError(err)
