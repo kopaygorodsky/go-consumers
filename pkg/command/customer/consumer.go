@@ -11,7 +11,6 @@ import (
 
 type Consumer struct {
 	db             *sql.DB
-	amqpConnection *amqp.Connection
 	amqpChannel    *amqp.Channel
 	amqpQueue      *amqp.Queue
 }
