@@ -24,7 +24,10 @@ services:
     ports:
       - 5432:5432
     volumes:
+      - ./docker/postgres/conf/postgresql.conf:/etc/postgresql.conf
       - ./customers.sql:/docker-entrypoint-initdb.d/init.sql
+    command: postgres -c config_file=/etc/postgresql.conf
+
   app:
     build:
       dockerfile: docker/app/Dockerfile

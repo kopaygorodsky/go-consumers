@@ -3,10 +3,8 @@ package customer
 import (
 	"database/sql"
 	"encoding/json"
-	"fmt"
 	"github.com/streadway/amqp"
 	"log"
-	"sync"
 )
 
 type Consumer struct {
@@ -30,25 +28,33 @@ func NewConsumer(db *sql.DB, channel *amqp.Channel) *Consumer {
 	return &Consumer{db: db, amqpChannel: channel, amqpQueue: &q}
 }
 
-func (c *Consumer) Consume(wg sync.WaitGroup, i int) {
-	fmt.Printf("Consumer %d started...\n", i)
-	defer wg.Done()
-	defer fmt.Printf("Consumer %d done receiving...\n", i)
-
+func (c *Consumer) Consume() {
 	messages, err := c.amqpChannel.Consume(c.amqpQueue.Name, "", false, false, false, false, nil)
 
 	handleError(err)
 
+	in := make(chan amqp.Delivery)
+
+	for i := 0; i < 100; i++ {
+		go func() {
+			c.db.Ping()
+
+			for d := range in {
+				var storeCmd StoreCommand
+				err := json.Unmarshal(d.Body, &storeCmd)
+
+				if err != nil {
+					log.Printf("Error unmarshalling. %s", err.Error())
+				}
+
+				handleError(c.handle(storeCmd))
+				handleError(d.Ack(false))
+			}
+		}()
+	}
+
 	for d := range messages {
-		var storeCmd StoreCommand
-		err := json.Unmarshal(d.Body, &storeCmd)
-
-		if err != nil {
-			log.Printf("Error unmarshalling. %s", err.Error())
-		}
-
-		handleError(c.handle(storeCmd))
-		handleError(d.Ack(false))
+		in <- d
 	}
 }
 

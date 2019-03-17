@@ -9,7 +9,6 @@ import (
 	"os"
 	"runtime"
 	"service-bus-benchmark/pkg/command/customer"
-	"sync"
 )
 
 var amqpConnection, dbConnection string
@@ -44,8 +43,8 @@ func run() {
 
 	handleError(err)
 
-	db.SetMaxOpenConns(99)
-	db.SetMaxIdleConns(99)
+	db.SetMaxOpenConns(250)
+	db.SetMaxIdleConns(250)
 
 	err = db.Ping()
 
@@ -56,24 +55,14 @@ func run() {
 
 	defer connection.Close()
 
-	var wg sync.WaitGroup
+	channel, err := connection.Channel()
+	handleError(err)
+	handleError(channel.Qos(500,0, false))
 
-	for i := 0; i < 100; i++ {
-		wg.Add(1)
+	defer channel.Close()
 
-		go func(index int) {
-			channel, err := connection.Channel()
-			handleError(err)
-			handleError(channel.Qos(10,0, false))
-
-			defer channel.Close()
-
-			consumer := customer.NewConsumer(db, channel)
-			consumer.Consume(wg, index)
-		}(i)
-	}
-
-	wg.Wait()
+	consumer := customer.NewConsumer(db, channel)
+	consumer.Consume()
 }
 
 func MaxParallelism() int {
