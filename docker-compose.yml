@@ -25,3 +25,14 @@ services:
       - 5432:5432
     volumes:
       - ./customers.sql:/docker-entrypoint-initdb.d/init.sql
+  app:
+    build:
+      dockerfile: docker/app/Dockerfile
+      context: .
+    environment:
+      AMQP_CONNECTION: amqp://admin:admin123@queue:5672/
+      DB_CONNECTION: host=db port=5432 user=demo password=123456789 dbname=tester sslmode=disable
+    command: ["/bin/bash", "-c", "sleep 60 && /bin/prep && /bin/tester"]
+    depends_on:
+      - db
+      - queue

@@ -58,13 +58,13 @@ func run() {
 
 	var wg sync.WaitGroup
 
-	for i := 0; i < 99; i++ {
+	for i := 0; i < 100; i++ {
 		wg.Add(1)
 
 		go func(index int) {
 			channel, err := connection.Channel()
 			handleError(err)
-			handleError(channel.Qos(1,0, false))
+			handleError(channel.Qos(10,0, false))
 
 			defer channel.Close()
 
